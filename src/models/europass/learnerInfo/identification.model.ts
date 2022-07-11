@@ -9,12 +9,12 @@ export interface PersonName {
   surName: string;
 }
 
-interface ContactInfo {
+export interface ContactInfo {
   address: Address;
   email: EMail;
 }
 
-interface Address {
+export interface Address {
   addressLine: string;
   postalCode: string;
   municipallity: string;

@@ -21,14 +21,14 @@ export interface Address {
   country: Country;
 }
 
-interface Country {
+export interface Country {
   label: string;
 }
 
-interface EMail {
+export interface EMail {
   contact: string;
 }
 
-interface Demographics {
+export interface Demographics {
   birthDate: Date;
 }

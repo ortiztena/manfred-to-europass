@@ -7,6 +7,9 @@ import { LearnerInfo } from "@/models/europass/learnerInfo";
 import {
   Address,
   ContactInfo,
+  Country,
+  Demographics,
+  EMail,
   Identification,
   PersonName,
 } from "@/models/europass/learnerInfo/identification.model";
@@ -40,7 +43,7 @@ const generateEuropassLearnerInfo = (cv: ManfredAwesomicCV): LearnerInfo => ({
 const generateIdentification = (cv: ManfredAwesomicCV): Identification => ({
   personName: generatePersonName(cv.aboutMe.profile),
   contactInfo: generateContactInfo(cv.aboutMe.profile),
-  demographics: generateDemographics(cv.aboutMe.profile),
+  demographics: generateDemographics(cv.aboutMe.profile.birthday),
 });
 
 const generatePersonName = (profile): PersonName => ({
@@ -48,8 +51,8 @@ const generatePersonName = (profile): PersonName => ({
   surName: profile.surnames,
 });
 
-const generateDemographics = (profile) => ({
-  birthDate: new Date(profile.birthday),
+const generateDemographics = (birthday: string): Demographics => ({
+  birthDate: new Date(birthday),
 });
 
 const generateContactInfo = (profile): ContactInfo => ({
@@ -61,14 +64,14 @@ const generateContactInfoAddress = (location: Location): Address => ({
   addressLine: location.address,
   postalCode: location.postalCode,
   municipallity: location.municipality,
-  country: generateContactInfoCountry(location),
+  country: generateContactInfoCountry(location.country),
 });
 
-const generateContactInfoCountry = (location) => ({
-  label: location,
+const generateContactInfoCountry = (country: string): Country => ({
+  label: country,
 });
 
-const generateContactInfoEmail = (email: ContactMean) => ({
+const generateContactInfoEmail = (email: ContactMean): EMail => ({
   contact: email.contactMails[0], // maybe external function to handle the email collection
 });
 

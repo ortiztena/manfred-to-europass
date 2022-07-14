@@ -13,7 +13,12 @@ import {
   Identification,
   PersonName,
 } from "@/models/europass/learnerInfo/identification.model";
-import { ContactMean, Location, ManfredAwesomicCV } from "@/models/manfred";
+import {
+  Person,
+  ContactMean,
+  Location,
+  ManfredAwesomicCV,
+} from "@/models/manfred";
 
 const mapManfredToEuropass = (cv: ManfredAwesomicCV): SkillsPassport => ({
   documentInfo: generateEuropassDocumentInfo(),
@@ -46,7 +51,7 @@ const generateIdentification = (cv: ManfredAwesomicCV): Identification => ({
   demographics: generateDemographics(cv.aboutMe.profile.birthday),
 });
 
-const generatePersonName = (profile): PersonName => ({
+const generatePersonName = (profile: Person): PersonName => ({
   firstName: profile.name,
   surName: profile.surnames,
 });
@@ -55,7 +60,7 @@ const generateDemographics = (birthday: string): Demographics => ({
   birthDate: new Date(birthday),
 });
 
-const generateContactInfo = (profile): ContactInfo => ({
+const generateContactInfo = (profile: Person): ContactInfo => ({
   address: generateContactInfoAddress(profile.location),
   email: generateContactInfoEmail(profile.contact),
 });

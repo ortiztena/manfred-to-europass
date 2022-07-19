@@ -19,6 +19,7 @@ import {
   Location,
   ManfredAwesomicCV,
 } from "@/models/manfred";
+import { generateWorkExperienceList } from "./work-experience.mapper";
 
 const mapManfredToEuropass = (cv: ManfredAwesomicCV): SkillsPassport => ({
   documentInfo: generateEuropassDocumentInfo(),
@@ -41,7 +42,7 @@ const generateEuropassPrintingPreferences = (): PrintingPreferences => ({
 
 const generateEuropassLearnerInfo = (cv: ManfredAwesomicCV): LearnerInfo => ({
   identification: generateIdentification(cv),
-  workExperienceList: [], // external function
+  workExperienceList: generateWorkExperienceList(cv), // external function
   skills: [], // external function
 });
 

@@ -9,12 +9,12 @@ export interface Period {
   current: boolean;
 }
 
-interface YearMonth {
+export interface YearMonth {
   year: string;
   month: string;
 }
 
-interface Position {
+export interface Position {
   code: string;
   label: string;
 }

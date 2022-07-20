@@ -11,9 +11,11 @@ export const generateWorkExperienceList = (
 ): WorkExperience[] => [
   {
     period: mapPeriod(cv.experience.jobs), // [] funcion map
-    position: cv.experience.jobs.map(generatePosition), // []
+    position: mapPosition(cv.experience.jobs), // []
   },
 ];
+
+const mapPosition = (jobs): Position => jobs.map(generatePosition);
 
 const mapPeriod = (jobs) => {
   const roles = jobs.map((x) => x.roles[0]).map(generatePeriod);
@@ -22,8 +24,10 @@ const mapPeriod = (jobs) => {
 
 const generatePeriod = (date): Period => ({
   from: generateDate(date.startDate),
-  to: generateDate(date.finishDate),
-  current: false, // date.current no data
+  to: date.finishDate
+    ? generateDate(date.finishDate)
+    : generateDate(new Date(Date.now()).toISOString().slice(0, 10)),
+  current: date.finishDate ? true : false,
 });
 
 const generateDate = (date: string): YearMonth => ({

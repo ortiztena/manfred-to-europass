@@ -17,17 +17,15 @@ export const generateWorkExperienceList = (
 
 const mapPosition = (jobs): Position => jobs.map(generatePosition);
 
-const mapPeriod = (jobs) => {
-  const roles = jobs.map((x) => x.roles[0]).map(generatePeriod);
-  return roles;
-};
+const mapPeriod = (jobs): Period =>
+  jobs.map((job) => job.roles[0]).map(generatePeriod);
 
-const generatePeriod = (date): Period => ({
+const generatePeriod = (date: Role): Period => ({
   from: generateDate(date.startDate),
   to: date.finishDate
     ? generateDate(date.finishDate)
     : generateDate(new Date(Date.now()).toISOString().slice(0, 10)),
-  current: date.finishDate ? true : false,
+  current: date.finishDate ? false : true,
 });
 
 const generateDate = (date: string): YearMonth => ({
@@ -36,6 +34,12 @@ const generateDate = (date: string): YearMonth => ({
 });
 
 const generatePosition = (experience): Position => ({
+  //add types to experience
   code: experience.organization.name,
-  label: experience.notes ? experience.notes : "", // optional in manfred, mandatory in Europass
+  label: mapLabel(experience.roles), // optional in manfred, mandatory in Europass
 });
+
+const mapLabel = (roles): string =>
+  roles ? generatePositionLabel(roles[0]) : generatePositionLabel(false);
+
+const generatePositionLabel = (rol): string => (rol ? rol.name : "");
